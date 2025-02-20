@@ -1,21 +1,23 @@
-# IUPI Ahorro e Inversiones
-![Descripción de la imagen](https://raw.githubusercontent.com/No-Country-simulation/h4-04-fintech/refs/heads/dev/client/public/Property%201%3DLogo%20con%20fondo.png?token=GHSAT0AAAAAAC4WWQDPM5SH6J2BACGWA75SZ4ZIUJQ)
+# Ahorro e Inversiones
 
 ## Industria o Rubro
 La industria fintech se enfoca en la innovación tecnológica aplicada a los servicios financieros. Este proyecto se enmarca en este sector, ofreciendo soluciones digitales que facilitan el ahorro y la inversión, mejorando la inclusión financiera y proporcionando herramientas avanzadas para la gestión del patrimonio personal.
 
 ## Breve Descripción del Proyecto
-Incluir financieramente a la población argentina en un contexto económico complejo
-y cambiante, brindando herramientas que faciliten el ahorro e inversión a personas
-de diferentes edades y niveles de experiencia.
-iUpi es una aplicación financiera diseñada para empoderar a los usuarios en la
-gestión y crecimiento de su patrimonio. La plataforma permite definir objetivos
-personales, como la planificación de unas vacaciones, la compra de bienes como un
-automóvil o un departamento o la financiación de proyectos a largo plazo. Basándose
-en estos objetivos, iUpi asigna un portafolio de inversiones personalizado, adaptado
-al perfil del usuario y a las dinámicas del mercado. Además, la app aprende del
-comportamiento de cada usuario y ofrece recomendaciones de inversión cada vez
-más precisas y alineadas con sus metas.
+El objetivo es incluir financieramente a la población argentina en un contexto económico complejo y cambiante, brindando herramientas que faciliten el ahorro e inversión a personas de diferentes edades y niveles de experiencia.  
+Se trata de una webapp financiera diseñada para empoderar a los usuarios en la gestión y crecimiento de su patrimonio. La plataforma permite definir objetivos personales (como planificar unas vacaciones, adquirir un automóvil o financiar proyectos a largo plazo) y, basándose en ellos, asigna un portafolio de inversiones personalizado adaptado al perfil del usuario y a las dinámicas del mercado. Además, aprende del comportamiento de cada usuario y ofrece recomendaciones de inversión cada vez más precisas y alineadas con sus metas.
+
+## Contribución Individual – Data (Jefferson Serrano)
+En mi rol en el área de Data, desarrollé e implementé soluciones clave que potenciaron significativamente el proyecto.
+
+**Prueba Heurística de Preperfilación:**  
+Diseñé y ejecuté una prueba heurística basada en un cuestionario, que asigna puntos a los usuarios para perfilar sus necesidades y riesgos financieros. Este sistema estableció criterios claros y efectivos para personalizar las recomendaciones, marcando el primer paso hacia un onboarding robusto.
+
+**Onboarding y Esqueleto Financiero:**  
+En colaboración con la especialista de UX, diseñé el proceso de onboarding y el esqueleto financiero que captura información esencial de los usuarios. Este flujo recopila datos críticos sobre conocimientos financieros, objetivos y capacidad de ahorro, permitiendo elaborar una radiografía financiera precisa que sirva de base para la asignación de inversiones.
+
+**Modelo de Clustering Adaptativo:**  
+Desarrollé un modelo de clustering único, capaz de segmentar a los usuarios según su perfil de riesgo y de reentrenarse con cada inversión realizada. Este modelo se ajusta dinámicamente al comportamiento del usuario, asegurando que, si éste evoluciona y se desplaza de su grupo inicial, las recomendaciones continúen siendo precisas y alineadas con su nueva realidad financiera.
 
 
 
