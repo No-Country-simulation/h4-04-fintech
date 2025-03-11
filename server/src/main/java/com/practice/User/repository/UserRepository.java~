@@ -1,7 +1,0 @@
-package com.practice.User.repository;
-
-import com.practice.User.model.UserModel;
-import org.springframework.data.jpa.repository.JpaRepository;
-
-public interface UserRepository extends JpaRepository<UserModel, Long> {
-}

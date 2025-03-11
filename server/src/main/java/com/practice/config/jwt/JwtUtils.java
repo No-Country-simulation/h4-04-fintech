@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -32,10 +33,17 @@ public class JwtUtils {
     // Generar un token de acceso
     public String generateJwtToken(Authentication authentication) {
 
-
+        String username;
         Algorithm algorithm = Algorithm.HMAC256(this.SECRET_KEY);
 
-        String username = authentication.getPrincipal().toString();
+        //String username = authentication.getPrincipal().toString();
+        if (authentication.getPrincipal() instanceof OAuth2User oauthUser) {
+            // 🔹 OAuth2 Login (Google)
+            username = oauthUser.getAttribute("email");
+        } else {
+            // 🔹 Login Normal (Usuario y contraseña)
+            username = authentication.getName(); // Usa el username normal
+        }
 
         String authorities = authentication.getAuthorities()
                 .stream().map(GrantedAuthority::getAuthority)

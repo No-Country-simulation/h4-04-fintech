@@ -1,5 +1,7 @@
 package com.practice.Objectives.dtoResponse;
 
+import java.time.LocalDateTime;
+
 public record ObjectivesResponseCreateDto(
         Long id,
         String description,
@@ -8,6 +10,8 @@ public record ObjectivesResponseCreateDto(
         Double annualProgress,
         String priority,
         String frequency,
-        Long idFinancingProfile
+//        Long idFinancingProfile,
+        LocalDateTime startDate,
+        LocalDateTime targetDate
 ) {
 }

@@ -50,7 +50,7 @@ public class ObjectivesServiceImpl implements ObjectivesService {
 
     @Override
     public ObjectivesResponseCreateDto createObjective(ObjectivesCreateRequestDto objectivesCreateRequestDto) {
-        FinancingProfileModel financingProfileEntity = financingProfileRepository.findById(objectivesCreateRequestDto.idFinancingProfile()).orElseThrow();
+//        FinancingProfileModel financingProfileEntity = financingProfileRepository.findById(objectivesCreateRequestDto.idFinancingProfile()).orElseThrow();
         EnumPriority priority;
         EnumObjectiveType objectiveType;
         EnumFrequency frequency;
@@ -71,7 +71,7 @@ public class ObjectivesServiceImpl implements ObjectivesService {
                 .annualProgress(objectivesCreateRequestDto.annualProgress())
                 .enumPriority(priority)
                 .enumFrequency(frequency)
-                .financingProfile(financingProfileEntity)
+//                .financingProfile(financingProfileEntity)
                 .build();
         objectiveRepository.save(objectiveModel);
 
@@ -82,7 +82,8 @@ public class ObjectivesServiceImpl implements ObjectivesService {
                 objectiveModel.getAnnualProgress(),
                 objectivesCreateRequestDto.priority(),
                 objectivesCreateRequestDto.frequency(),
-                objectivesCreateRequestDto.idFinancingProfile()
+                objectivesCreateRequestDto.startDate(),
+                objectivesCreateRequestDto.targetDate()
         );
     }
 
@@ -103,16 +104,21 @@ public class ObjectivesServiceImpl implements ObjectivesService {
                         EnumFrequency frequency = EnumFrequency.valueOf(objectivesUpdateRequestDto.getFrequency());
                         objective.setEnumFrequency(frequency);
                     }
-                    if (objectivesUpdateRequestDto.getIdFinancingProfile() != null) {
-                        FinancingProfileModel profileModel = financingProfileRepository
-                                .findById(
-                                        objectivesUpdateRequestDto.getIdFinancingProfile()
-                                ).orElseThrow();
-                        objective.setFinancingProfile(profileModel);
+                    if (objectivesUpdateRequestDto.getDescription() != null) {
+                        objective.setDescription(objectivesUpdateRequestDto.getDescription());
                     }
-                    objective.setDescription(objectivesUpdateRequestDto.getDescription());
-                    objective.setAmountObjective(objectivesUpdateRequestDto.getAmountObjective());
-                    objective.setAnnualProgress(objectivesUpdateRequestDto.getAnnualProgress());
+                    if (objectivesUpdateRequestDto.getAmountObjective() != null) {
+                        objective.setAmountObjective(objectivesUpdateRequestDto.getAmountObjective());
+                    }
+                    if (objectivesUpdateRequestDto.getAnnualProgress() != null) {
+                        objective.setAnnualProgress(objectivesUpdateRequestDto.getAnnualProgress());
+                    }
+                    if (objectivesUpdateRequestDto.getStartDate() != null) {
+                        objective.setStartDate(objectivesUpdateRequestDto.getStartDate());
+                    }
+                    if (objectivesUpdateRequestDto.getTargetDate() != null) {
+                        objective.setTargetDate(objectivesUpdateRequestDto.getTargetDate());
+                    }
                     ObjectiveModel updateObjective = objectiveRepository.save(objective);
                     return objectiveMapper.toDtoObjective(updateObjective);
                 }).orElseThrow(() -> new IllegalArgumentException("No se encontro el objetivo con id" + objectivesUpdateRequestDto.getId()));

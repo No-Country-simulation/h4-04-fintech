@@ -31,6 +31,9 @@ public class UserModel {
     @Column(name = "photo_url")
     private String photoUrl;
 
+    @Column(name = "google_id")
+    private String googleId;
+
     @Column(unique = true)
     private String email;
 
@@ -56,8 +59,7 @@ public class UserModel {
     private LocalDateTime lastLogin = LocalDateTime.now();
 
 
-    @OneToOne
-    @JoinColumn(name = "financing_profile_id")
+    @OneToOne(mappedBy = "user", targetEntity = FinancingProfileModel.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private FinancingProfileModel financingProfile;
 
     @OneToMany(mappedBy = "user", targetEntity = CostModel.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)

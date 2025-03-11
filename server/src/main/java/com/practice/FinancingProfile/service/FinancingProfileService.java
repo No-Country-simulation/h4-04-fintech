@@ -18,4 +18,6 @@ public interface FinancingProfileService {
     FinancingProfileResponseDto updateFinancingProfile(Long id, @Valid FinancingProfileRequestDto financingProfileRequest);
 
     void deletePortfolio(Long id);
+
+    FinancingProfileResponseDto findFinancingProfileByUserId(Long userId);
 }

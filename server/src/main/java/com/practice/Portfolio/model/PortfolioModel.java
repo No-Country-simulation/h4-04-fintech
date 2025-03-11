@@ -39,5 +39,4 @@ public class PortfolioModel {
     @JoinColumn(name = "instrument_id")
     private InstrumentModel instrument;
 
-
 }

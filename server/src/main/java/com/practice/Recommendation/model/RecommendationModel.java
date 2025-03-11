@@ -1,17 +1,23 @@
 package com.practice.Recommendation.model;
 
+import com.practice.Instrument.Enum.EnumInvestmentType;
 import com.practice.Instrument.model.InstrumentModel;
 import com.practice.Recommendation.Enum.EnumRecommendationType;
 import com.practice.User.model.UserModel;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
+@Builder
 @Table(name = "recommendations")
 public class RecommendationModel {
     @Id
@@ -32,5 +38,4 @@ public class RecommendationModel {
     @ManyToOne(targetEntity = InstrumentModel.class)
     @JoinColumn(name = "instrument_id")
     private InstrumentModel instrument;
-
 }

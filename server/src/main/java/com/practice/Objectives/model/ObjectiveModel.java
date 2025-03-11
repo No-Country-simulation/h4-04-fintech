@@ -37,12 +37,11 @@ public class ObjectiveModel {
     @Column(name = "frequency")
     private EnumFrequency enumFrequency;
     @Column(name = "start_date")
-    private LocalDateTime startDate = LocalDateTime.now();
+    private LocalDateTime startDate;
     @Column(name = "target_date")
-    private LocalDateTime targetDate = LocalDateTime.now();
-
-    @ManyToOne(targetEntity = FinancingProfileModel.class)
-    @JoinColumn(name = "financing_profile_id")
-    private FinancingProfileModel financingProfile;
+    private LocalDateTime targetDate;
+//    @ManyToOne(targetEntity = FinancingProfileModel.class)
+//    @JoinColumn(name = "financing_profile_id")
+//    private FinancingProfileModel financingProfile;
 
 }

@@ -51,7 +51,7 @@ public class ObjectiveMapper {
         dto.setFrequency(objectiveModel.getEnumFrequency() != null ?
                 objectiveModel.getEnumFrequency().name() : null);
 
-        dto.setFinancingProfile(toObjectivesFinancingProfileResponseDto(objectiveModel.getFinancingProfile()));
+//        dto.setFinancingProfile(toObjectivesFinancingProfileResponseDto(objectiveModel.getFinancingProfile()));
         return dto;
     }
 

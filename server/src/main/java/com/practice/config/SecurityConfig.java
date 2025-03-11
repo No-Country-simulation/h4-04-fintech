@@ -1,5 +1,6 @@
 package com.practice.config;
 
+import com.practice.config.filters.CustomOAuth2SuccessHandler;
 import com.practice.config.filters.JwtTokenValidator;
 import com.practice.config.jwt.JwtUtils;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +23,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
@@ -36,6 +38,7 @@ public class SecurityConfig  {
 
 
     private final JwtUtils jwtUtils;
+    private final CustomOAuth2SuccessHandler successHandler;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -45,6 +48,7 @@ public class SecurityConfig  {
                         .requestMatchers("/", "/login/**", "/oauth2/**").permitAll()
                         .anyRequest().permitAll()
                 )
+                .oauth2Login(oauth2 -> oauth2.successHandler(successHandler))
                 //.oauth2Login(oauth2 -> oauth2.defaultSuccessUrl("/hello", true))
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
@@ -88,9 +92,4 @@ public class SecurityConfig  {
         source.registerCorsConfiguration("/**", config);
         return new CorsFilter(source);
     }
-
-//    @Bean
-//    public ModelMapper modelMapper() {
-//        return new ModelMapper();
-//    }
 }

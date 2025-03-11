@@ -15,5 +15,5 @@ public class ObjectivesResponseDto {
     private Double annualProgress;
     private String priority;
     private String frequency;
-    private ObjectiveFinancingProfileInfoDto financingProfile;
+//    private ObjectiveFinancingProfileInfoDto financingProfile;
 }

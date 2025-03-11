@@ -1,5 +1,6 @@
 package com.practice.exceptions;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
@@ -122,6 +123,31 @@ public class GlobalExceptionController {
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(errorResponse);
     }
 
+    @ExceptionHandler(InsufficientInstrumentsException.class)
+    public ResponseEntity<ErrorResponse> handleInsufficientInstrumentsException(InsufficientInstrumentsException ex) {
+        ErrorResponse errorResponse = new ErrorResponse(
+                "INSUFFICIENT_INSTRUMENTS",
+                "Ha ocurrido un error con el portafolio",
+                Collections.singletonList(ex.getMessage())
+        );
+
+        log.warn("Insufficient instruments: {}", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+    }
+
+    @ExceptionHandler(InvalidFileException.class)
+    public ResponseEntity<ErrorResponse> handleInvalidFileException(InvalidFileException ex) {
+        ErrorResponse errorResponse = new ErrorResponse(
+                "INVALID_FILE",
+                "Ha ocurrido un error con el archivo",
+                Collections.singletonList(ex.getMessage())
+        );
+
+        log.warn("Invalid file: {}", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+    }
+
+
     @ExceptionHandler(PortfolioNotFoundException.class)
     public ResponseEntity<ErrorResponse> handlePortfolioNotFoundException(PortfolioNotFoundException ex) {
         ErrorResponse errorResponse = new ErrorResponse(
@@ -132,6 +158,18 @@ public class GlobalExceptionController {
 
         log.warn("Portfolio not found: {}", ex.getMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
+    }
+
+    @ExceptionHandler(PortfolioHasTransactionsException.class)
+    public ResponseEntity<ErrorResponse> handlePortfolioHasTransactionsException(PortfolioHasTransactionsException ex) {
+        ErrorResponse errorResponse = new ErrorResponse(
+                "PORTFOLIO_ERROR",
+                "El portafolio tiene transacciones",
+                Collections.singletonList(ex.getMessage())
+        );
+
+        log.warn("Portfolio has transactions: {}", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
     }
 
     @ExceptionHandler(TransactionNotFoundException.class)
@@ -157,18 +195,35 @@ public class GlobalExceptionController {
         log.warn("Financing profile not found: {}", ex.getMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
     }
-
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorResponse> handleException(Exception ex) {
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleUserNotFoundException(UserNotFoundException ex) {
         ErrorResponse errorResponse = new ErrorResponse(
-                "SERVER_ERROR",
-                "Ha ocurrido un error en el servidor",
+                "USER_ERROR",
+                "Ha ocurrido un error con el usuario",
                 Collections.singletonList(ex.getMessage())
         );
 
-        log.error("Internal server error: {}", ex.getMessage());
+        log.warn("User not found: {}", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
+    }
+
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ErrorResponse> handleException(Exception ex, HttpServletRequest request) {
+        String path = request.getRequestURI();
+        String exceptionType = ex.getClass().getSimpleName();
+
+        ErrorResponse errorResponse = new ErrorResponse(
+                "SERVER_ERROR",
+                "Ha ocurrido un error en el servidor",
+                List.of("Error: " + ex.getMessage(), "Ruta: " + path, "Tipo: " + exceptionType)
+        );
+
+        log.error("🚨 Error en la ruta [{}]: {} - {}", path, exceptionType, ex.getMessage(), ex);
+
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
     }
+
 
 
 

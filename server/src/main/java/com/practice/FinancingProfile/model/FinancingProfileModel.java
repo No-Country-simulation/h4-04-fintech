@@ -18,6 +18,7 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @Entity
+@Table(name = "financing_profile")
 public class FinancingProfileModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,7 +26,6 @@ public class FinancingProfileModel {
     @Column(name = "knowledge_level")
     private String knowledgeLevel;
     @Column(name = "risk_profile")
-    //@Enumerated(value = EnumType.STRING)
     private String riskProfile;
     @Column(name = "income_monthly")
     private Double incomeMonthly;
@@ -40,9 +40,10 @@ public class FinancingProfileModel {
     @Column(name = "patrimony_total")
     private Double patrimonyTotal;
 
-    @OneToOne(mappedBy = "financingProfile", targetEntity = UserModel.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne
+    @JoinColumn(name = "user_id")
     private UserModel user;
 
-    @OneToMany(mappedBy = "financingProfile", targetEntity = ObjectiveModel.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<ObjectiveModel> objectiveModels = new ArrayList<>();
+//    @OneToMany(mappedBy = "financingProfile", targetEntity = ObjectiveModel.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    private List<ObjectiveModel> objectiveModels = new ArrayList<>();
 }

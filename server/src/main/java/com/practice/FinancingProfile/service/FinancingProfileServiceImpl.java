@@ -92,5 +92,12 @@ public class FinancingProfileServiceImpl implements FinancingProfileService {
         financingProfileRepository.delete(financingProfileModel);
     }
 
+    @Override
+    public FinancingProfileResponseDto findFinancingProfileByUserId(Long userId) {
+        UserModel user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException(String.format(USER_NOT_FOUND, userId)));
+        FinancingProfileModel financingProfile = financingProfileRepository.findByUser(user).orElse(null);
+        return financingProfileMapper.map(financingProfile, FinancingProfileResponseDto.class);
+    }
+
 
 }

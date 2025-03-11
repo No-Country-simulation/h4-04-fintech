@@ -5,6 +5,7 @@ import com.practice.Instrument.dtoResponse.InstrumentPageResponseDto;
 import com.practice.Instrument.mappers.InstrumentMapper;
 import com.practice.Instrument.model.InstrumentModel;
 import com.practice.Instrument.repository.InstrumentRepository;
+import com.practice.exceptions.InstrumentNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -31,5 +32,22 @@ public class InstrumentServiceImpl implements InstrumentService {
                 .collect(Collectors.toList());
 
         return new InstrumentPageResponseDto(instrumentDtos, instrumentPage.getTotalPages(), instrumentPage.getTotalElements());
+    }
+
+
+    @Override
+    public double getCurrentPrice(Long instrumentId) {
+        InstrumentModel instrument = instrumentRepository.findById(instrumentId)
+                .orElseThrow(() -> new InstrumentNotFoundException(
+                        String.format("El instrumento con ID %d no fue encontrado", instrumentId)
+                ));
+
+        if (Boolean.FALSE.equals(instrument.getState())) {
+            throw new InstrumentNotFoundException(
+                    String.format("El instrumento con ID %d está inactivo", instrumentId)
+            );
+        }
+
+        return instrument.getQuotes();
     }
 }

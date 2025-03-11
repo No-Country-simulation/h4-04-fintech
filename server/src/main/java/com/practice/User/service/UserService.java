@@ -4,6 +4,7 @@ import com.practice.User.dtoRequest.UserRequestDto;
 import com.practice.User.dtoResponse.UserPageResponse;
 import com.practice.User.dtoResponse.UserResponseDto;
 import com.practice.User.mapper.UserMapper;
+import com.practice.User.model.RoleModel;
 import com.practice.User.model.UserModel;
 import com.practice.User.repository.UserRepository;
 import com.practice.exceptions.UserNotFoundException;
@@ -11,9 +12,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -69,4 +74,31 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
+    public Map<String, Object> processUser(OAuth2User oauthUser) {
+        String email = oauthUser.getAttribute("email");
+        String name = oauthUser.getAttribute("name");
+        String picture = oauthUser.getAttribute("picture");
+
+        // Buscar usuario en la BD o crearlo si no existe
+        UserModel user = userRepository.findByEmail(email)
+                .orElseGet(() -> {
+                    UserModel newUser = new UserModel();
+                    newUser.setEmail(email);
+                    newUser.setName(name);
+                    newUser.setPhotoUrl(picture);
+                    return userRepository.save(newUser); // Guarda en BD
+                });
+
+        // Construir la respuesta con los datos del usuario
+        Map<String, Object> userInfo = new HashMap<>();
+        userInfo.put("id", user.getId());
+        userInfo.put("email", user.getEmail());
+        userInfo.put("name", user.getName());
+
+        if (user.getPhotoUrl() != null) {
+            userInfo.put("picture", user.getPhotoUrl());
+        }
+
+        return userInfo;
+    }
 }

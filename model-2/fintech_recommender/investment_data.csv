@@ -1,0 +1,9 @@
+investment_id,investment_type,risk_level,min_investment,expected_return
+1,letras_tesoro,2,7655,8.587176217589523
+2,plazos_fijos,1,9173,9.51173561649092
+3,bonos_soberanos,1,5495,6.438495025539413
+4,acciones_renta_variable,2,7002,10.089999126828129
+5,fondos_inversion_renta_variable_internacional,3,7614,3.366002999268593
+6,cedears,1,6919,3.448178264990573
+7,etfs,1,1853,12.871206727915899
+8,fondos_comunes_inversion,1,5146,7.322287696935154

@@ -18,6 +18,6 @@ public class ObjectivesUpdateRequestDto {
     private String frequency;
     private LocalDateTime startDate = LocalDateTime.now();
     private LocalDateTime targetDate = LocalDateTime.now();
-    private Long idFinancingProfile;
+//    private Long idFinancingProfile;
 
 }

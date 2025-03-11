@@ -1,5 +1,5 @@
 -- Tabla Financing_Profile
-insert into financing_profile_model (knowledge_level, risk_profile, expenses_monthly, income_monthly,
+insert into financing_profile (knowledge_level, risk_profile, expenses_monthly, income_monthly,
                                              patrimony_total, percentage_save, saving_total, total_debt)
 values (1, 'INTERMEDIO', 12.5, 200, 202.73, 100.88, 2.3, 200036),
        (2, 'NOVATO', 458.6, 145, 1896.12, 1239.698, 2.9, 124789),
@@ -21,13 +21,13 @@ where users.id = 3;
 
 -- Tabla Objectives
 insert into objectives (id, amount_objective, annual_progress, description, frequency, objectuve_type, priority,
-                                start_date, target_date, financing_profile_id)
+                                start_date, target_date)
 values (1, 200.5, 20.8, 'Descripcion 1', 'MENSUAL', 'INVERSIONES', 'BAJA', '2005-01-14 13:14:01.000000',
-        '2006-01-14 13:14:22.000000', 1),
+        '2006-01-14 13:14:22.000000'),
        (2, 188.96, 12.9, 'Descripcion 2', 'UNICO', 'RETIRO', 'MEDIA', '2023-05-14 13:15:53.000000',
-        '2024-06-19 13:15:59.000000', 2),
+        '2024-06-19 13:15:59.000000'),
        (3, 199.9, 12.5, 'Descripcion 3', 'MENSUAL', 'INVERSIONES', 'ALTA', '2024-10-14 13:17:10.000000',
-        '2024-11-14 13:17:16.000000', 3);
+        '2024-11-14 13:17:16.000000');
 
 
 -- Tabla Instrumento
@@ -109,3 +109,10 @@ VALUES (1, 1500.75, '2025-01-01'),
        (2, 1000.00, '2025-01-03'),
        (2, 3000.00, '2025-01-04'),
        (3, 500.25, '2025-01-05');
+
+INSERT INTO notice (id, author, comments, description, image_url, published_at, title)
+VALUES
+      (1, 'Ana Beltrán', 74, 'Un análisis detallado de cómo las economías más grandes del mundo están enfrentando el año 2025.', 'https://example.com/economia-2025.jpg', '2025-02-03T12:00:00Z', 'La economía global en 2025'),
+      (2, 'Miguel Torres', 44, 'Explorando las tendencias y predicciones para el mercado de criptomonedas en el próximo año.', 'https://example.com/criptomonedas.jpg', '2025-02-01T10:30:00Z', 'El futuro de las criptomonedas'),
+      (3, 'Luisa Martínez', 59, 'Un análisis sobre cómo DeepSeek está transformando la informática en el ámbito de la programación y las finanzas.', 'https://example.com/ia-medicina.jpg', '2025-01-30T08:15:00Z', 'Impacto de la inteligencia artificial en la medicina'),
+      (4, 'Elena Vargas', 39, 'Una exploración de las nuevas tecnologías que están revolucionando el sector automotriz.', 'https://example.com/auto-tech.jpg', '2025-01-20T14:45:00Z', 'Tecnologías emergentes en la industria automotriz');
